@@ -19,13 +19,13 @@ K_{\eta, \psi} = \int_{-\infty}^{\infty} \frac{\overline{\widehat{\psi}(\zeta)}{
 Then, to confirm the reconstruction theorem, the corresponding　function $\psi$ was set up as follows:
 
 ```math
-\widehat{\psi}(\zeta) = \zeta^{2k-1}e^{-\zeta^2}, \quad k\in\mathbb{N}
+\widehat{\psi}(\zeta) = i^{2k-1}\zeta^{2k-1}e^{-\zeta^2}, \quad k\in\mathbb{N}
 ```
 
 For this equation, by computing the inverse Fourier transform, we can write $\psi$ as a function of $z$ as follows.
 
 ```math
-\psi(z) = \frac{i^{2k-1}}{2\sqrt{\pi}}\cdot(-1)^{2k-1}\cdot\left(\frac{1}{2}\right)^{2k-1}\cdot H_{2k-1}\left(\frac{z}{2}\right)\cdot e^{-z^2/4}
+\psi(z) = \frac{1}{2\sqrt{\pi}}\cdot(-1)^{2k-1}\cdot\left(\frac{1}{2}\right)^{2k-1}\cdot H_{2k-1}\left(\frac{z}{2}\right)\cdot e^{-z^2/4}
 ```
 
 where, $H_n$ is the Hermite function.

@@ -1,59 +1,69 @@
-# file: plot_K_eta_psi_real.py
-import numpy as np
+# file: compute_kernel_product.py
 import mpmath as mp
-import matplotlib.pyplot as plt
+import csv # CSVファイルへの書き込みのためにインポート
+import os  # ディレクトリ操作のためにインポート
+from tqdm import tqdm # 進捗バー表示のためにインポート
 
-# Fourier transform of tanh(z)
+# tanh(z) のフーリエ変換
 def eta_hat(z):
     return -1j * mp.pi / (2 * mp.sinh(mp.pi * z / 2))
 
-# psi_hat with phase factor i^(2k-1)
+# psi_hat(z) の定義
+# 引数をkに統一し、不要な行を削除
 def psi_hat(z, k):
-    phase = (1j) ** (2 * k - 1)
-    return phase * (z ** (2 * k - 1)) * mp.e ** (-(z ** 2))
+    # kが奇数か偶数かで位相が変わる
+    N = 2 * k - 1 
+    phase = (1j) ** N
+    return phase * (z ** N) * mp.exp(-(z ** 2))
 
-# K_{eta,psi} integral (real part only)
+# K_{eta,psi} の積分計算
 def K_eta_psi(k):
+    # 被積分関数
     f = lambda z: (mp.conj(psi_hat(z, k)) * eta_hat(z)) / abs(z)
-    return float(mp.quad(f, [-mp.inf, 0, mp.inf]).real)  # 実部のみ
+    # 積分を実行し、実部のみを返す
+    # 積分は複素数値になる可能性があるため、.realで実部を取得
+    val = mp.quad(f, [-mp.inf, 0, mp.inf])
+    return float(val.real)
 
 if __name__ == "__main__":
-    mp.mp.dps = 30  # 高精度計算
-    ks = list(range(1, 50))
-    values = []
+    # mpmathの計算精度を設定
+    mp.mp.dps = 30
+    
+    # 計算するkの範囲
+    ks_to_compute = range(1, 51) # 1から50まで計算（範囲は適宜調整してください）
+    results = []
+    
+    print(f"Calculating K_eta_psi for k = {ks_to_compute.start} to {ks_to_compute.stop - 1}...")
 
-    for k in ks:
+    # tqdmを使って進捗を表示しながら計算
+    for k in tqdm(ks_to_compute, desc="Calculating K_eta_psi"):
         val = K_eta_psi(k)
-        values.append(val)
-        print(f"k={k}, K_eta_psi={val}")
+        results.append({'k': k, 'K_eta_psi': val})
+        # print(f"k={k}, K_eta_psi={val}") # 詳細表示が必要な場合はコメントを外す
 
-    # プロット（点＋色分け）
-    colors = plt.cm.viridis(np.linspace(0, 1, len(ks)))
-    for i, k in enumerate(ks):
-        plt.scatter(k, values[i], color=colors[i], label=f"k={k}", s=50)
+    # === 計算結果をCSVファイルに保存 ===
+    
+    # 保存先のディレクトリを指定
+    output_dir = os.path.join('data')
+    # ディレクトリが存在しない場合は作成
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # ファイル名とディレクトリを結合して完全なパスを作成
+    output_filename = os.path.join(output_dir, 'kernel_product_results.csv')
+    
+    try:
+        with open(output_filename, 'w', newline='', encoding='utf-8') as csvfile:
+            # 書き込むフィールド（列）の名前を定義
+            fieldnames = ['k', 'K_eta_psi']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-    plt.figure(figsize=(10, 6)) # プロットサイズを調整
+            # ヘッダー（列名）を書き込む
+            writer.writeheader()
+            # 計算結果のデータを書き込む
+            writer.writerows(results)
+            
+        print(f"\nCalculation finished.")
+        print(f"Results have been saved to '{output_filename}'")
 
-    # プロット（点＋色分け）
-    # 負の値を含むため、絶対値を取らずに元の値を直接プロットします
-    colors = plt.cm.viridis(np.linspace(0, 1, len(ks)))
-    for i, k in enumerate(ks):
-        plt.scatter(k, values[i], color=colors[i], label=f"k={k}", s=50, zorder=3)
-
-    # 縦軸を対称対数スケール（symlog）に設定
-    # linthreshは、線形スケールとして扱う0周りの範囲の閾値を指定します
-    # この値より絶対値が小さい範囲が線形スケールになります
-    plt.yscale('symlog', linthresh=1e-5)
-
-    # 0の位置に水平線を引いて、正負を分かりやすくします
-    plt.axhline(0, color='black', linestyle='--', linewidth=0.8)
-
-    # ラベルとタイトル
-    # 以前ご指定いただいたように、ラベルは英語表記にします
-    plt.xlabel("k")
-    plt.ylabel("Re($K_{\\eta, \\psi}$)")
-    plt.title("Real part of $K_{\\eta, \\psi}$ vs k (Symmetric Log Scale)")
-    plt.legend(ncol=2, fontsize=8)
-    plt.grid(True, which="both", ls="--")
-    plt.show()
-
+    except IOError as e:
+        print(f"\nAn error occurred while writing to the file: {e}")
