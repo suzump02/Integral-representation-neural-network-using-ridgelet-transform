@@ -9,7 +9,7 @@ $$
 
 **REMARK:**Coefficients of the reconduction formula($m=1$)
 $$
-K_{\eta, \psi} = \int_{-\infty}^{\infty} \frac{\oerline{\widehat{\psi}(\zeta)}{\widehat{\eta}(\zeta)}}{|\zeta|} d\zeta
+K_{\eta, \psi} = \int_{-\infty}^{\infty} \frac{\overline{\widehat{\psi}(\zeta)}{\widehat{\eta}(\zeta)}}{|\zeta|} d\zeta
 $$
 
 Then, to confirm the reconstruction theorem, the corresponding　function $\psi$ was set up as follows
