@@ -2,18 +2,34 @@
 Ridgelet変換によるNNsの数値計算
 
 ## Theoretical framework
-We choose the hyperbolic tangent function $\tanh(z)$ as the active function $\eta(z)$. The Fourier transform of the hyperbolic tangent function is given by :
-$$
-\begin{align*}
+We choose the hyperbolic tangent function $\tanh(z)$ as the active function $\eta(z)$. The Fourier transform of the hyperbolic tangent function is given by:
+
+```math
 \widehat{\eta}(\zeta) = \frac{-i\pi}{2 \sinh(\frac{\pi}{2}\zeta)}.
-\end{align*}
-$$
+```
 
-**REMARK:** Coefficients of the reconduction formula($m=1$)
-$$
-\begin{align*}
-K_{\eta, \psi} = \int_{-\infty}^{\infty} \frac{\overline{\widehat{\psi}(\zeta)}{\widehat{\eta}(\zeta)}}{|\zeta|} d\zeta
-\end{align*}.
-$$
+See "note/ridgelet_reconstruction_note_v1.pdf" for derivation of this formula.
 
-Then, to confirm the reconstruction theorem, the corresponding　function $\psi$ was set up as follows
+**REMARK:** Coefficients of the reconduction formula ($m=1$)
+
+```math
+K_{\eta, \psi} = \int_{-\infty}^{\infty} \frac{\overline{\widehat{\psi}(\zeta)}{\widehat{\eta}(\zeta)}}{|\zeta|} d\zeta.
+```
+
+Then, to confirm the reconstruction theorem, the corresponding　function $\psi$ was set up as follows:
+
+```math
+\widehat{\psi}(\zeta) = \zeta^{2k-1}e^{-\zeta^2}, \quad k\in\mathbb{N}
+```
+
+For this equation, by computing the inverse Fourier transform, we can write $\psi$ as a function of $z$ as follows.
+
+```math
+\psi(z) = \frac{i^{2k-1}}{2\sqrt{\pi}}\cdot(-1)^{2k-1}\cdot\left(\frac{1}{2}\right)^{2k-1}\cdot H_{2k-1}\left(\frac{z}{2}\right)\cdot e^{-z^2/4}
+```
+
+where, $H_n$ is the Hermite function.
+
+
+
+
