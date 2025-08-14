@@ -9,7 +9,7 @@ $$
 \end{align*}
 $$
 
-**REMARK:**Coefficients of the reconduction formula($m=1$)
+**REMARK:** Coefficients of the reconduction formula($m=1$)
 $$
 \begin{align*}
 K_{\eta, \psi} = \int_{-\infty}^{\infty} \frac{\overline{\widehat{\psi}(\zeta)}{\widehat{\eta}(\zeta)}}{|\zeta|} d\zeta
