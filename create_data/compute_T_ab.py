@@ -63,16 +63,18 @@ if __name__ == '__main__':
     mp.mp.dps = 25
     
     # 計算したいkの値を設定
-    k_to_compute = 2
+    k_to_compute = 3
     
     print(f"This script is a module, but can be run directly to pre-calculate T(a,b) for k={k_to_compute}.")
     
     # T(a,b)のグリッドを計算
     a_vals, b_vals, T_values = compute_T_ab_grid(k_val=k_to_compute)
     
-    # 保存先のディレクトリを指定
-    output_dir = os.path.join('data', 'distribution_T')
-    # ディレクトリが存在しない場合は作成
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir) # create_dataの1つ上の階層
+    
+    # 保存先のディレクトリをプロジェクトルートからのパスとして構築
+    output_dir = os.path.join(project_root, 'data', 'distribution_T')
     os.makedirs(output_dir, exist_ok=True)
     
     # kの値を反映したファイル名を生成

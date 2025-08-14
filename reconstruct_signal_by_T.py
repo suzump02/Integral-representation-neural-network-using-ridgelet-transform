@@ -7,7 +7,7 @@ import os
 import csv
 
 # compute_T_ab.pyからグリッド計算用の関数をインポート
-from compute_T_ab import compute_T_ab_grid
+from create_data.compute_T_ab import compute_T_ab_grid
 
 def reconstruct_signal_with_K():
     """
