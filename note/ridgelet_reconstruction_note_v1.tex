@@ -1,0 +1,447 @@
+\documentclass[a4paper,12pt]{article} 
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage[english]{babel}
+\usepackage{luatexja}
+\usepackage{csquotes}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{mathabx}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{xcolor} 
+\usepackage{cases}
+\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{threeparttable}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage[margin=20mm]{geometry}
+\usepackage{url}
+\usepackage{ascmac}
+\usepackage{cite}
+%\usepackage{todonotes}
+
+\setlength{\evensidemargin}{-2mm}
+\setlength{\oddsidemargin}{-2mm}
+\setlength{\topmargin}{-5mm}
+\setlength{\textheight}{220mm}
+\setlength{\textwidth}{165mm}
+\setlength{\arraycolsep}{10pt}   
+\renewcommand{\arraystretch}{1.5} 
+\setlength{\jot}{2ex}
+
+%定理環境
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{form}[thm]{Formula}
+\newtheorem{df}[thm]{Definition}
+\newtheorem{con}[thm]{Conjecture}
+
+%雑多
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\renewcommand{\qedsymbol}{\hfill \blacksquare}
+\newcommand{\Res}{\text{Res}}
+
+%三角関数
+\newcommand{\sech}{\operatorname{sech}}
+
+
+%積分関係
+\newcommand{\intinf}{\int_{-\infty}^{\infty}}
+\newcommand{\intrm}{\int_{\mathbb{R}^m}}
+
+%空間
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Y}{\mathbb{Y}^{m+1}}
+\newcommand{\Sq}{\mathbb{S}}
+
+%変換
+\newcommand{\Ra}{\mathrm{R}}
+\newcommand{\Rid}{\mathscr{R}}
+\newcommand{\Ridd}{\mathscr{R}^{\dagger}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Hil}{\mathcal{H}}
+
+%ギリシャ記号
+\newcommand{\z}{\zeta}
+
+%ベクトル
+\newcommand{\vu}{\bm{u}}
+\newcommand{\va}{\bm{a}}
+\newcommand{\vx}{\bm{x}}
+\newcommand{\vy}{\bm{y}}
+\newcommand{\vw}{\bm{w}}
+
+%ノルム・絶対値
+\newcommand{\nora}{\|\bm{a}\|}
+\newcommand{\absz}{|\z|}
+
+%微小量
+\newcommand{\da}{\mathrm{d}\va}
+\newcommand{\dx}{\mathrm{d}\vx}
+\newcommand{\dw}{\mathrm{d}\vw}
+\newcommand{\db}{\mathrm{d}b}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\pd}{\partial}
+
+%微分関係
+\newcommand{\diff}[2]{\dfrac{\dd #1}{\dd #2}}
+\newcommand{\diffl}[2]{\dd #1/\dd #2}
+\newcommand{\pdiff}[2]{\dfrac{\pd #1}{\pd #2}}
+\newcommand{\pdiffl}[2]{\pd #1/\pd #2}
+
+
+%フーリエ関数
+\newcommand{\psihat}{\widehat{\psi}}
+\newcommand{\etahat}{\widehat{\eta}}
+
+%特殊な関数
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}\nolimits}
+
+\newcommand{\SSC}[1]{\section{#1}\setcounter{equation}{0}}
+
+
+\begin{document}
+
+\title{
+\bf 
+Note: On the Reconstruction Formula for the Ridgelet Transform
+}
+\author{
+Raian Suzuki
+\footnote{
+Department of Physics,
+Faculty of Science and Engineering,
+Chuo University, 
+Kasuga, Bunkyo-ku, Tokyo 112-8551, Japan;
+} 
+}
+
+\date{\today (version 1.0)}
+
+\pagestyle{plain}
+\maketitle
+
+% \begin{abstract}
+  
+% \end{abstract}
+
+\clearpage
+
+\section{Introduction}
+
+We define the ridgelet transform and its dual as follows:
+
+\begin{align}
+  \Rid_\psi[f](\va, b) &\coloneqq \intrm f(x) \, \psi(\va \cdot \vx - b) \, \nora^s \, \dx
+\end{align}
+
+\begin{align}
+  \Ridd_{\eta}[T](x) &\coloneqq \intinf \intrm  T(\va, b) \, \eta(\va \cdot \vx - b) \, \nora^{-s}\, \da \db
+\end{align}
+
+We consider the reconstruction formula.
+
+\begin{align}
+  \Ridd_{\eta}[\Rid_\psi[f]](\vx) = K_{\psi, \eta} \, f(x)
+\end{align}
+
+where 
+
+\begin{align}
+  K_{\psi, \eta} &\coloneqq \intinf \frac{\overline{\psihat(\z)}\etahat(\z)}{\absz^{m}} \, \dd \z
+\end{align}
+
+\clearpage
+
+\section{Reconstruction Formula}
+
+Let $\eta$ and $\psi$ be fourier-transformable functions on $\R$, and let $\psihat$ and $\etahat$ be their Fourier transforms, respectively.
+In what follows, to avoid notational conflict, we denote the evaluation point of the reconstruction as $\vy$.
+
+Throughout this section, 
+we assume that all functions involved are sufficiently well-behaved (e.g., rapidly decaying and smooth, or belonging to appropriate $L^1$ or $L^2$ spaces) such that all interchanges of integration order are justified by Fubini's Theorem.
+
+\begin{align}
+  \Rid_\psi[f](\va, b) &= \intrm \dx \, f(x) \, \psi(\va \cdot \vx - b) \, \nora^s 
+\end{align}
+
+\begin{align}
+  \Ridd_{\eta}[\Rid_\psi[f]](\vy) &= \intrm \da \intinf \db \, \left(\intrm \dx \, f(\vx) \, \psi(\va \cdot \vx - b) \, \nora^s \right)  \, \eta(\va \cdot \vy - b) \, \nora^{-s}\\
+  &= \intrm \da \intinf \db \, \intrm \dx \, f(\vx) \, \psi(\va \cdot \vx - b) \, \eta(\va \cdot \vy - b) \label{a}\\
+  &= \intrm \dx \, f(\vx) \, \intrm \da \intinf \db \, \psi(\va \cdot \vx - b) \, \eta(\va \cdot \vy - b) \label{b}
+\end{align}
+
+To evaluate the integral, we introduce a change of variables. Consider the transformation from $(\va, b)$ to $(z, \vw)$:
+\begin{align*}
+  \begin{cases}
+    z &= \va \cdot \vx - b\\
+    \vw &= (a_1, a_2, \cdots a_m)
+  \end{cases}
+  \iff
+  \begin{cases}
+    b &= \va \cdot \vx - z\\
+    \va &= \vw 
+  \end{cases}
+\end{align*}
+
+Where ($a_1, a_2, \cdots a_m$) are the components of $\va$.
+
+\clearpage
+
+The Jacobian matrix of this transformation is given by:
+
+\begin{align*}
+  J &=
+  \begin{pmatrix}
+    \pdiffl{z}{a_1} & \pdiffl{w_1}{a_1} & \cdots & \pdiffl{w_{m-1}}{a_1} & \pdiffl{w_m}{a_1} \\
+    \pdiffl{z}{a_2} & \pdiffl{w_1}{a_2} & \cdots & \pdiffl{w_{m-1}}{a_2} & \pdiffl{w_m}{a_2} \\
+    \vdots         & \vdots           & \ddots & \vdots               & \vdots           \\
+    \pdiffl{z}{a_m} & \pdiffl{w_1}{a_m} & \cdots & \pdiffl{w_{m-1}}{a_m} & \pdiffl{w_m}{a_m} \\
+    \pdiffl{z}{b}   & \pdiffl{w_1}{b}   & \cdots & \pdiffl{w_{m-1}}{b}   & \pdiffl{w_m}{b}
+  \end{pmatrix}
+  \\[1.5ex]
+  &=
+  \begin{pmatrix}
+    x_1 & 1 & 0 & \cdots & 0 & 0 \\
+    x_2 & 0 & 1 & \cdots & 0 & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+    x_{m-1} & 0 & 0 & \cdots & 1 & 0 \\
+    x_m & 0 & 0 & \cdots & 0 & 1 \\
+    -1 & 0 & 0 & \cdots & 0 & 0
+  \end{pmatrix}
+\end{align*}
+
+Where ($x_1, x_2, \cdots x_m$) are the components of $\vx$. 
+The determinant is computed by cofactor expansion along the last row. Let $C_{(i,j)}$ denote the cofactor corresponding to the element in the $i$-th row and $j$-th column. Since the only nonzero element in the last row is in position $(m+1, 1)$, its sign is given by $(-1)^{(m+1)+1}$.
+
+The minor corresponding to this entry is the $m \times m$ identity matrix, so its cofactor is:
+\begin{align*}
+C_{((m+1),1)} = (-1)^{(m+1)+1} \cdot \det(I_m) = (-1)^{m+2} \cdot 1 = (-1)^{m+2}
+\end{align*}
+
+Hence:
+\begin{align*}
+\det(J) =-1 \cdot C_{((m+1), 1)}= -1 \cdot (-1)^{m+2} = (-1)^{m+3}, \quad \text{so} \quad |\det(J)| = 1
+\end{align*}.
+
+The integral after the transformation is as follows:
+
+\begin{align}
+  \text{(RHS)} &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd z \, \psi(z) \, \eta(\vw \cdot (\vy - \vx) + z)\\
+  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd z \, \left( \intinf \dd \z \, \psihat(\z) e^{i\z z}\right) \, \eta(\vw \cdot (\vy - \vx) + z) \label{c}\\
+  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd z \, \intinf \dd \z \, \psihat(\z) e^{i\z z} \, \eta(\vw \cdot (\vy - \vx) + z)\label{d}\\
+  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \intinf \dd z \,e^{i\z z} \, \eta(\vw \cdot (\vy - \vx) + z)\label{e}
+\end{align}
+
+In equation \eqref{c}, we apply the Fourier inversion formula to $\psi$, which yields the integral representation of $\psi$ via $\psihat$.
+
+\bigskip
+
+Next, consider the following transformation:
+\begin{align}
+  z' = \vw \cdot (\vy - \vx) + z \\
+  \iff z = z' - \vw \cdot (\vy - \vx)
+\end{align}
+
+\begin{align}
+  \text{(RHS)} &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \intinf \dd z' \, e^{i\z z'} \, e^{- i\z \vw \cdot (\vy - \vx)}\, \eta(z')\\
+  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \, e^{- i\z \vw \cdot (\vy - \vx)} \intinf \dd z' \, \eta(z') \, e^{i\z z'} \\
+  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \, e^{- i\z \vw \cdot (\vy - \vx)} \, \etahat(\z)\\
+  &= \intrm \dx \, f(\vx) \, \intinf \dd \z \, \psihat(\z) \, \etahat(\z) \intrm \dw \, e^{- i\z \vw \cdot (\vy - \vx)}\\
+\end{align}
+
+Considering the transformation from $\z\vw$ to $\vw'$, and noting that its Jacobian is $\absz^m$:
+
+\begin{align}
+  \text{(RHS)} &= \intrm \dx \, f(\vx) \, \intinf \dd \z \, \psihat(\z) \, \etahat(\z) \intrm \frac{\dw}{\absz^m} \, e^{- i\vw' \cdot (\vy - \vx)}\\
+  &= \intrm \dx \, f(\vx) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \intrm \dw \, e^{- i\vw' \cdot (\vy - \vx)}\\
+  &= \intrm \dx \, f(\vx) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \, \delta(\vy - \vx)\\
+  &=  \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \, \intrm \dx \, f(\vx)  \, \delta(\vy - \vx)\\
+  &= f(\vy) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m}. 
+\end{align}
+
+Thus, it is shown that the reconstruction formula is possible.
+
+\clearpage
+
+
+\section{Examples}
+
+We choose the hyperbolic tangent function as the activation function $\eta$.
+The Fourier transform of the hyperbolic tangent function is given by:
+\begin{align}
+  \etahat(\z) = -i \pi \, \sech\left(\frac{\pi}{2} \z\right)
+\end{align}
+
+We now calculate why its Fourier transform takes this form.
+
+\begin{align*}
+  \etahat(\z) &= \text{p.v.}\, \intinf \tanh(z) \, e^{-i\z z} \, \dd z \\
+  &= \lim_{R \to \infty} \int_{-R}^{R} \tanh(z) \, e^{-i\z z} \, \dd z 
+\end{align*}
+
+Here, p.v. denotes the Cauchy principal value. The necessity of taking the Cauchy principal value arises from the fact that $\tanh(z)$ converges to a constant at infinity, whereas the exponential term exhibits oscillatory behavior.
+
+As direct evaluation of this integral is difficult, we resort to considering a complex integral along a contour $\mathcal{C}$.
+
+\begin{align*}
+  \int_{\mathcal{C}} \tanh(z) \, e^{-i\z z} \, \dd z &= \int_{\gamma_R} \tanh(z) \, e^{-i\z z} \, \dd z + \int_{\ell_R} \tanh(z) \, e^{-i\z z} \, \dd z.
+\end{align*}
+
+Where $\mathcal{C}$ is a closed contour in the complex plane, and $\gamma_R$ and $\ell_R$ are specific segments of this contour. For $\zeta > 0$, we choose $\mathcal{C}$ to be the semi-circular contour in the upper half-plane,
+consisting of the real axis segment $[-R, R]$ (denoted by $\ell_R$) and the semi-circular arc $\gamma^+_R = \{ z = R e^{i\theta} \mid 0 \leq \theta \leq \pi \}$. Conversely, for $\zeta < 0$,
+we choose the semi-circular contour in the lower half-plane $\gamma^-_R = \{ z = R e^{-i\theta} \mid 0 \leq \theta \leq \pi \}$.
+
+\bigskip
+
+Now, we will utilize the Residue Theorem to evaluate this complex integral. 
+The next steps involve:
+
+\begin{enumerate}
+  \item Identifying the contribution from the straight line segment.
+  \item Calculating the residues.
+  \item Showing the integral along the semi-circular arc vanishes.
+\end{enumerate}
+
+Next, we will calculate the residues at the poles within our chosen contour. The fact that poles of $\tanh(z)e^{-i\zeta z}$ are located at $z_k = \pm i (/2 + k)\pi$ for $k \in \mathbb{Z}$ can be readily seen from the following lemma:
+
+\begin{lem}[Infinite Product Expansion of Hyperbolic Cosine]
+The hyperbolic cosine function $\cosh(z)$ has the infinite product expansion:
+$$ \cosh(z) = \prod_{k=0}^{\infty} \left(1 + \frac{z^2}{\left(k+\dfrac{1}{2}\right)^2\pi^2}\right) $$
+\end{lem}
+
+Since these poles are simple pole, we can use the following lemma to calculate the residues:
+
+\begin{lem}[Residue at a Simple Pole] \label{lem:simple_pole_res}
+Let $f(z) = \dfrac{p(z)}{q(z)}$ be a complex function where $p(z)$ and $q(z)$ are analytic functions. If $q(z_0) = 0$ and $q'(z_0) \neq 0$ (implying $z_0$ is a simple zero of $q(z)$), and $p(z_0) \neq 0$, then $f(z)$ has a simple pole at $z=z_0$, and its residue is given by:
+$$ \text{Res}(f(z), z_0) = \frac{p(z_0)}{q'(z_0)} $$
+\end{lem}
+
+\textbf{Case 1: $\zeta > 0$}
+For $\z > 0$, we choose the semi-circular contour in the lower half-plane. Therefore, we need to consider the poles $z_k = -i (\pi/2 + k\pi)$ for $k \in \mathbb{N}$.
+The residues at these poles can be computed using Lemma \ref{lem:simple_pole_res}. Here, $p(z) = \sinh(z)e^{-i \z z}$ and $q(z) = \cosh(z)$.
+The residue at the pole $z_k = -i (\pi/2 + k\pi)$ is given by:
+\begin{align*}
+  \text{Res}(\tanh(z)e^{-i \z z}, z_k) &= \frac{\sinh(z_k)e^{-i \z z_k}}{\cosh'(z_k)} \\
+  &=\frac{\sinh(z_k)e^{-i \z z_k}}{\sinh(z_k)}\\
+  &= e^{-i \z z_k} \\
+  &= e^{-i \z (-i (\pi/2 + k\pi))}\\
+  &= e^{\z (\pi/2 + k\pi)}.
+\end{align*}
+
+As $R \to \infty$, the contour enclose an infinite number of poles in the lower half-plane, specifically $z_j = -i (j + 1/2)\pi$ for $j \in \mathbb{N}$. Thus, the total sum of residues will be an infinite seriese:
+
+\begin{align*}
+  \sum_{j=0}^{\infty} \Res(\tanh(z)e^{-i \z z}, z_j) &= \sum_{j=1}^{\infty} e^{\z (j + 1/2)\pi} \\
+  &= e^{\z \pi/2} \sum_{j=1}^{\infty} e^{j\z \pi} \\
+  &= e^{\z \pi/2} \frac{e^{\z \pi}}{1 - e^{\z \pi}}\\
+  &=  \frac{i\pi}{2\sinh\left(\frac{\pi}{2} \z\right)}.
+\end{align*}
+
+It's important to note that when integrating along a contour in the lower half-plane, the contour is typically traversed anticlockwise.
+Since we are integrating clockwise this time, a minus sign is attached when using the residue theorem.
+
+\bigskip
+
+\textbf{Case 2: $\zeta < 0$}
+By similar calculations, the infinite sum of the residues for $\z < 0$ is given by:
+
+\begin{align*}
+  \sum_{j=0}^{\infty} \Res(\tanh(z)e^{-i \z z}, z_j) &= \sum_{j=1}^{\infty} e^{-\z (j + 1/2)\pi} \\
+  &= e^{-\z \pi/2} \sum_{j=1}^{\infty} e^{-j\z \pi} \\
+  &= e^{-\z \pi/2} \frac{e^{-\z \pi}}{1 - e^{-j\z \pi}}\\
+  &= \frac{-i\pi}{2\sinh\left(\frac{\pi}{2} \z\right)}
+\end{align*}
+
+\bigskip
+
+Next, we will show that the integral over a semicircle is zero.
+
+\bigskip
+
+\textbf{Case 1: $\zeta > 0$}
+
+For $\z > 0$, we consider the semicircular contour in the lower half-plane, denoted as $\gamma^-_R = \{ z = R e^{-i\theta} \mid 0 \leq \theta \leq \pi \}$.
+We need to show that the integral over this semicircle vanishes as $R \to \infty$.
+
+We have:
+\begin{align*}
+  \left|\int_{\gamma^-_R} \tanh(z)e^{-i \z z} \, \dd z\right| &= \left| \int_{0}^{\pi} \tanh(R e^{-i\theta}) e^{-i \z R e^{-i\theta}} (-i R e^{-i\theta}) \, \dd\theta \right| \\
+  &\leq \int_{0}^{\pi} \left| \tanh(R e^{-i\theta}) e^{-i \z R e^{-i\theta}} (-i R e^{-i\theta}) \right| \, \dd\theta \\
+  &=  R \int_{0}^{\pi} \left| \tanh(R e^{-i\theta})  \right|e^{ -\z R \sin \theta} \, \dd\theta \\
+  &\leq  R \int_{0}^{\pi} e^{ -\z R \sin \theta} \, \dd\theta.
+\end{align*}
+
+Here, we use the following lemma:
+
+\begin{lem}[Laplace's Method]
+Let $f(x)$ be a twice continuously differentiable function on the interval $[a, b]$,
+ such that it attains its maximum value at a unique point $x_0 \in (a, b)$, i.e., $f(x_0) = \max_{a \leq x \leq b} f(x)$, and $f''(x_0) < 0$.
+ Under these conditions, we have:
+\begin{align*}
+  \int_a^b e^{n f(x)} \, \dd x \sim \sqrt{\frac{2\pi}{n\left|f''(x_0)\right|}}  e^{n f(x_0)} \quad \text{as } n \to \infty.
+\end{align*}
+Here, $\sim$ denotes that the ratio of the two sides approaches 1 as $n \to \infty$.
+\end{lem}
+Using Laplace's method, we can evaluate the integral as follows:
+\begin{align*}
+  \int_{0}^{\pi} e^{ -\z R \sin \theta} \, \dd\theta &\sim \sqrt{\frac{2\pi}{\z R \left| -\cos(0) \right|}} e^{ -\z R \sin(\frac{\pi}{2})} \\
+  &= \sqrt{\frac{2\pi}{\z R}} e^{ -\z R} \\
+  &= \sqrt{\frac{2\pi}{\z R}} e^{ -\z R}.
+\end{align*}
+
+Hence, we calculate the integral over the semicircle as follows:
+\begin{align*}
+  R \int_{0}^{\pi} e^{ -\z R \sin \theta} \, \dd\theta &\leq R \sqrt{\frac{2\pi}{\z R}} e^{ -\z R} \\
+  &= \sqrt{\frac{2\pi R}{\z}} e^{ -\z R}.
+\end{align*}
+
+Therefore, we conclude that:
+\begin{align*}
+  \int_{\gamma^+_R} \tanh(z)e^{-i \z z} \, \dd z &\to 0 \quad \text{as } R \to \infty.
+\end{align*}
+
+\bigskip
+
+\textbf{Case 2: $\zeta < 0$}
+For $\z < 0$, we consider the semicircular contour in the upper half-plane, denoted as $\gamma^+_R = \{ z = R e^{i\theta} \mid 0 \leq \theta \leq \pi \}$.
+We need to show that the integral over this semicircle vanishes as $R \to \infty$.
+We have:
+\begin{align*}
+  \left|\int_{\gamma^+_R} \tanh(z)e^{-i \z z} \, \dd z\right| &= \left| \int_{0}^{\pi} \tanh(R e^{i\theta}) e^{-i \z R e^{i\theta}} (i R e^{i\theta}) \, \dd\theta \right| \\
+  &\leq \int_{0}^{\pi} \left| \tanh(R e^{i\theta}) e^{i \z R e^{i\theta}} (i R e^{i\theta}) \right| \, \dd\theta \\
+  &\leq \int_{0}^{\pi} \left| \tanh(R e^{i\theta}) e^{i \z R e^{i\theta}} (i R e^{i\theta}) \right| \, \dd\theta \\
+  &=  R \int_{0}^{\pi} \left| \tanh(R e^{i\theta})  \right|e^{ i \z R \sin \theta} \, \dd\theta \\
+  &\leq  R \int_{0}^{\pi} e^{\z R \sin \theta} \, \dd\theta.
+\end{align*}
+
+Here, using Laplace's lemma, the same calculation yields 0.
+Finally, we can conclude that the integral over the semicircle vanishes as $R \to \infty$.
+
+\bigskip
+
+Thus, we have:
+\begin{align*}
+  \etahat(\z) &= \frac{-i\pi}{2\sinh\left(\frac{\pi}{2} \z\right)}.
+\end{align*}
+
+\clearpage
+
+\nocite{*} 
+\bibliographystyle{plain} 
+\bibliography{ridgelet_reconstruction_note_v1} 
+
+\end{document}
