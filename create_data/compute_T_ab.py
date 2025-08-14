@@ -1,8 +1,8 @@
-# file: compute_T_ab.py
+# file: create_data/compute_T_ab_batch.py
 import numpy as np
 import mpmath as mp
 from tqdm import tqdm
-import os # ディレクトリ操作のためにインポート
+import os
 
 # -----------------------------------------------------------------
 # 再利用可能な関数群
@@ -33,7 +33,6 @@ def calculate_T(a, b, k):
     if a == 0:
         return 0.0
     
-    # このファイル内で定義された f(x) と ψ(z) を使用
     integrand = lambda x: abs(a) * f(x) * mp.conj(psi(a * x - b, k))
     
     val = mp.quad(integrand, [-1, 1])
@@ -43,13 +42,12 @@ def compute_T_ab_grid(k_val=1, a_points=61, b_points=61):
     """
     T(a,b)のグリッド計算をまとめて実行し、結果のグリッドを返します。
     """
-    print(f"Calculating T(a, b) grid for k={k_val}...")
-    
+    # この関数内ではプログレスバーはtqdm(a_vals)のみに任せる
     a_vals = np.linspace(-30, 30, a_points)
     b_vals = np.linspace(-30, 30, b_points)
     T_values = np.zeros((len(a_vals), len(b_vals)), dtype=np.float64)
 
-    for i, a in enumerate(tqdm(a_vals, desc="Calculating T(a,b)")):
+    for i, a in enumerate(tqdm(a_vals, desc=f"Calculating T(a,b) for k={k_val}")):
         for j, b in enumerate(b_vals):
             T_values[i, j] = calculate_T(a, b, k_val)
             
@@ -59,17 +57,16 @@ def compute_T_ab_grid(k_val=1, a_points=61, b_points=61):
 # このファイルを直接実行した場合の動作
 # -----------------------------------------------------------------
 if __name__ == '__main__':
-    # mpmathの計算精度を設定
     mp.mp.dps = 25
     
-    # 計算したいkの値を設定
-    k_to_compute = 3
+    # 計算したいkの範囲を設定
+    k_start = 1
+    k_end = 50
+    ks_to_compute = range(k_start, k_end + 1)
     
-    print(f"This script is a module, but can be run directly to pre-calculate T(a,b) for k={k_to_compute}.")
+    print(f"This script will pre-calculate T(a,b) for k from {k_start} to {k_end}.")
     
-    # T(a,b)のグリッドを計算
-    a_vals, b_vals, T_values = compute_T_ab_grid(k_val=k_to_compute)
-    
+    # このスクリプト自身の場所を基準に、プロジェクトのルートディレクトリを取得
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(script_dir) # create_dataの1つ上の階層
     
@@ -77,13 +74,25 @@ if __name__ == '__main__':
     output_dir = os.path.join(project_root, 'data', 'distribution_T')
     os.makedirs(output_dir, exist_ok=True)
     
-    # kの値を反映したファイル名を生成
-    base_filename = f'T_ab_data_k{k_to_compute}.npz'
-    # ファイル名とディレクトリを結合して完全なパスを作成
-    output_filename = os.path.join(output_dir, base_filename)
-    
-    # NumPyの .npz 形式で関連データをまとめて保存
-    np.savez(output_filename, a_vals=a_vals, b_vals=b_vals, T_values=T_values)
-    
-    print("\nCalculation finished.")
-    print(f"T(a,b) data has been saved to '{output_filename}'")
+    # ループで各kの値を計算し、個別のファイルに保存
+    for k in ks_to_compute:
+        print(f"\n--- Processing for k={k} ---")
+        
+        # kの値を反映したファイル名を生成
+        base_filename = f'T_ab_data_k{k}.npz'
+        output_filename = os.path.join(output_dir, base_filename)
+        
+        # 既にファイルが存在する場合はスキップ
+        if os.path.exists(output_filename):
+            print(f"Data for k={k} already exists. Skipping.")
+            continue
+            
+        # T(a,b)のグリッドを計算
+        a_vals, b_vals, T_values = compute_T_ab_grid(k_val=k)
+        
+        # NumPyの .npz 形式で関連データをまとめて保存
+        np.savez(output_filename, a_vals=a_vals, b_vals=b_vals, T_values=T_values)
+        
+        print(f"\nT(a,b) data for k={k} has been saved to '{output_filename}'")
+
+    print("\nAll calculations finished.")
