@@ -16,9 +16,9 @@ def plot_T_ab_3d():
     mp.mp.dps = 25
 
     # === ステップ1: T(a,b)のデータを準備 ===
-    
-    k_val = 2
-    
+
+    k_val = 1
+
     # --- パス設定の修正箇所 ---
     # このスクリプト自身の場所（プロジェクトルート）を取得
     project_root = os.path.dirname(os.path.abspath(__file__))

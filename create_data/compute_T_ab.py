@@ -38,7 +38,7 @@ def calculate_T(a, b, k):
     val = mp.quad(integrand, [-1, 1])
     return val.real
 
-def compute_T_ab_grid(k_val=1, a_points=61, b_points=61):
+def compute_T_ab_grid(k_val=1, a_points=201, b_points=201):
     """
     T(a,b)のグリッド計算をまとめて実行し、結果のグリッドを返します。
     """
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     
     # 計算したいkの範囲を設定
     k_start = 1
-    k_end = 50
+    k_end = 5
     ks_to_compute = range(k_start, k_end + 1)
     
     print(f"This script will pre-calculate T(a,b) for k from {k_start} to {k_end}.")
