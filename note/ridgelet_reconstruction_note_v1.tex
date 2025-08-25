@@ -279,6 +279,7 @@ Thus, it is shown that the reconstruction formula is possible.
 
 
 \section{Examples}
+\subsection{Fourier Transform of the active function $\eta(z)$}
 
 We choose the hyperbolic tangent function as the activation function $\eta$.
 The Fourier transform of the hyperbolic tangent function is given by:
@@ -437,6 +438,29 @@ Thus, we have:
 \begin{align*}
   \etahat(\z) &= \frac{-i\pi}{2\sinh\left(\frac{\pi}{2} \z\right)}.
 \end{align*}
+
+\subsection{Inverse Fourier Transform of the dual function $\psi(z)$}
+
+We choose the following function as the dual function $\psi$:
+
+\begin{align}
+  \psihat(\z) = \z^{2k-1} e^{-\z^2/2}, \quad k \in \mathbb{N}.
+\end{align}
+
+Now, we calculate its inverse Fourier transform of $\psihat(\z)$:
+
+\begin{align*}
+  \psi(x) &= \int_{-\infty}^{\infty} \psihat(\z) e^{i \z x} \, \dd\z \\
+  &= \int_{-\infty}^{\infty} \z^{2k-1} e^{-\z^2/2} e^{i \z x} \, \dd\z.
+\end{align*}
+
+Here, let $I = \int_{-\infty}^{\infty} e^{-\z^2/2} e^{i \z x} \, \dd\z$.
+From easily calculation, we have
+  \begin{align*}
+    I &= \int_{-\infty}^{\infty} e^{-\z^2/2} e^{i \z x} \, \dd\z \\
+    &= e^{-\frac{x^2}{4}} \int_{-\infty}^{\infty} e^{-\frac{1}{2}(\z - ix)^2} \, \dd\z \\
+    &= e^{-\frac{x^2}{4}} \sqrt{2\pi}.
+  \end{align*}
 
 \clearpage
 
