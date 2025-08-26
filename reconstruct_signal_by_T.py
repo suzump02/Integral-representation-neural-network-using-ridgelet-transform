@@ -18,7 +18,7 @@ def reconstruct_signal_with_K():
 
     # === ステップ1: T(a,b)のデータを準備 ===
     
-    k_val = 2
+    k_val = 1
     data_filename = os.path.join('data', 'distribution_T', f'T_ab_data_k{k_val}.npz')
     
     if os.path.exists(data_filename):

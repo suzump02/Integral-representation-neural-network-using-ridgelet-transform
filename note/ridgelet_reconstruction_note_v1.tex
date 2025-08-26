@@ -444,23 +444,44 @@ Thus, we have:
 We choose the following function as the dual function $\psi$:
 
 \begin{align}
-  \psihat(\z) = \z^{2k-1} e^{-\z^2/2}, \quad k \in \mathbb{N}.
+  \psihat(\z) = (i \z)^{2k-1} e^{-\z^2}, \quad k \in \mathbb{N}.
 \end{align}
 
 Now, we calculate its inverse Fourier transform of $\psihat(\z)$:
 
 \begin{align*}
   \psi(x) &= \int_{-\infty}^{\infty} \psihat(\z) e^{i \z x} \, \dd\z \\
-  &= \int_{-\infty}^{\infty} \z^{2k-1} e^{-\z^2/2} e^{i \z x} \, \dd\z.
+  &= \int_{-\infty}^{\infty} (i\z)^{2k-1} e^{-\z^2} e^{i \z x} \, \dd\z.
 \end{align*}
 
-Here, let $I = \int_{-\infty}^{\infty} e^{-\z^2/2} e^{i \z x} \, \dd\z$.
-From easily calculation, we have
+Here, let 
+\begin{align}
+  I(z) = \int_{-\infty}^{\infty} e^{-\z^2} e^{i \z z} \, \dd\z.
+\end{align}
+ We have:
   \begin{align*}
-    I &= \int_{-\infty}^{\infty} e^{-\z^2/2} e^{i \z x} \, \dd\z \\
-    &= e^{-\frac{x^2}{4}} \int_{-\infty}^{\infty} e^{-\frac{1}{2}(\z - ix)^2} \, \dd\z \\
-    &= e^{-\frac{x^2}{4}} \sqrt{2\pi}.
+    I(z) &= \int_{-\infty}^{\infty} e^{-\z^2} e^{i \z z} \, \dd\z \\
+    &= e^{-z^2/4} \int_{-\infty}^{\infty} e^{-\frac{1}{2}(\z - iz)^2} \, \dd\z \\
+    &= \sqrt{2\pi} \, e^{-z^2/4}.
   \end{align*}
+
+  Differentiating the equation with respect to $z$ $(2k-1)$ times, we obtain:
+  \begin{align*}
+    \diff{^{2k-1}}{z^{2k-1}} I(z) &= \diff{^{2k-1}}{z^{2k-1}} \int_{-\infty}^{\infty} e^{-\z^2} e^{i \z z} \, \dd\z \\
+    &= \int_{-\infty}^{\infty} e^{-\z^2} \diff{^{2k-1}}{z^{2k-1}} e^{i \z z} \, \dd\z \\
+    &= \int_{-\infty}^{\infty} e^{-\z^2} (i \z)^{2k-1} e^{i \z z} \, \dd\z \\
+  \end{align*}
+
+  whereas, differentiating the equation with respect to $z$ $(2k-1)$ times, we obtain:
+  \begin{align*}
+    \diff{^{2k-1}}{z^{2k-1}} I(z) &= \diff{^{2k-1}}{z^{2k-1}} \sqrt{2\pi} \, e^{-z^2/4} \\
+    &= \sqrt{2\pi} \, \diff{^{2k-1}}{z^{2k-1}} e^{-z^2/4} \\
+    &= \sqrt{2\pi} \, (-1)^{k-1} \left(\frac{1}{2}\right)^{2k-1} H_{2k-1}\left(\frac{z}{2}\right) e^{-z^2/4}. 
+  \end{align*}
+  Where, $H_n(x)$ is the Hermite polynomial defined by:
+  \begin{align}
+    H_n(x) = (-1)^n e^{x^2} \diff{^n}{x^n} e^{-x^2}.
+  \end{align}
 
 \clearpage
 

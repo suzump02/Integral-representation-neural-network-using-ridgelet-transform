@@ -60,8 +60,8 @@ if __name__ == '__main__':
     mp.mp.dps = 25
     
     # 計算したいkの範囲を設定
-    k_start = 1
-    k_end = 5
+    k_start = 6
+    k_end = 10
     ks_to_compute = range(k_start, k_end + 1)
     
     print(f"This script will pre-calculate T(a,b) for k from {k_start} to {k_end}.")

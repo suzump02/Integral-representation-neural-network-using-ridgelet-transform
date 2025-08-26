@@ -74,6 +74,17 @@ def plot_kernel_graph():
     
     plt.legend()
     plt.grid(True, which="both", linestyle="--")
+
+    # 保存先のディレクトリを指定
+    output_dir = os.path.join(project_root, 'result-figures')
+    # ディレクトリが存在しない場合は作成
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # ファイル名とディレクトリを結合して完全なパスを作成
+    output_filename = os.path.join(output_dir, 'kernel_plot.png')
+
+    plt.savefig(output_filename)
+    print(f"Graph saved as '{output_filename}'")
     
     
     plt.show()
