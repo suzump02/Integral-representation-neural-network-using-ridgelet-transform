@@ -52,11 +52,11 @@ def plot_T_ab_3d():
 
     B, A = np.meshgrid(b_vals, a_vals)
     surf = ax.plot_surface(B, A, T_values, cmap='viridis', edgecolor='none')
-    fig.colorbar(surf, shrink=0.5, aspect=10, label='Value of T(a, b)')
+    # fig.colorbar(surf, shrink=0.5, aspect=10, label='Value of T(a, b)')
     ax.set_xlabel('b')
     ax.set_ylabel('a')
     ax.set_zlabel('T(a, b)')
-    ax.set_title(f'3D Surface of Ridgelet Transform T(a,b) for k={k_val}')
+    # ax.set_title(f'3D Surface of Ridgelet Transform T(a,b) for k={k_val}')
     
     plt.show()
 
