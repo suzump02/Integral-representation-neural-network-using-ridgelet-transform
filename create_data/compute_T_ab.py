@@ -19,10 +19,9 @@ def psi(z, k):
     """
     指定された解析式に基づき、リッジレット関数 ψ(z) を定義します。
     """
-    n = 2 * k - 1
-    const = (1 / (2 * mp.sqrt(mp.pi))) * ((-1)**n) * (0.5**n)
+    const = mp.sqrt(2 *mp.pi) * ((-1)**(k-1)) * (0.5**(2*k-1))
     x_arg = z / 2
-    hermite_val = mp.hermite(n, x_arg)
+    hermite_val = mp.hermite(2*k-1, x_arg)
     exp_val = mp.exp(-z**2 / 4)
     return const * hermite_val * exp_val
 
@@ -38,13 +37,17 @@ def calculate_T(a, b, k):
     val = mp.quad(integrand, [-1, 1])
     return val.real
 
-def compute_T_ab_grid(k_val=1, a_points=201, b_points=201):
+def compute_T_ab_grid(k_val=1, a_points=201, b_points=201, only_grid=False):
     """
     T(a,b)のグリッド計算をまとめて実行し、結果のグリッドを返します。
     """
     # この関数内ではプログレスバーはtqdm(a_vals)のみに任せる
     a_vals = np.linspace(-30, 30, a_points)
     b_vals = np.linspace(-30, 30, b_points)
+
+    if only_grid:
+        return a_vals, b_vals, None
+
     T_values = np.zeros((len(a_vals), len(b_vals)), dtype=np.float64)
 
     for i, a in enumerate(tqdm(a_vals, desc=f"Calculating T(a,b) for k={k_val}")):
