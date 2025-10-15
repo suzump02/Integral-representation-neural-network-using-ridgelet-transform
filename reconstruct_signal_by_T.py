@@ -14,7 +14,7 @@ def reconstruct_signal_multi_k():
     それぞれの寄与を足し合わせて信号を再構成する。
     """
     mp.mp.dps = 25
-    k_list = [2]  # ← ここで足し合わせるkのリストを指定
+    k_list = [1]  # ← ここで足し合わせるkのリストを指定
 
     # === ステップ1: カーネル定数 K_eta_psi をまとめて読み込み ===
     kernel_filename = os.path.join('data', 'kernel_product_results.csv')
