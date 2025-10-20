@@ -25,7 +25,7 @@ Then, to confirm the reconstruction theorem, the corresponding　function $\psi$
 For this equation, by computing the inverse Fourier transform, we can write $\psi$ as a function of $z$ as follows.
 
 ```math
-\psi(z) = \frac{1}{2\sqrt{\pi}}\cdot(-1)\cdot\left(\frac{1}{2}\right)^{2k-1}\cdot H_{2k-1}\left(\frac{z}{2}\right)\cdot e^{-z^2/4}
+\psi(z) = 2\sqrt{\pi}\cdot(-1)\cdot\left(\frac{1}{2}\right)^{2k-1}\cdot H_{2k-1}\left(\frac{z}{2}\right)\cdot e^{-z^2/4}
 ```
 
 where, $H_n$ is the Hermite function.
