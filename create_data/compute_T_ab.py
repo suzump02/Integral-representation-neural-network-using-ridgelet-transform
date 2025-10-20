@@ -19,7 +19,7 @@ def psi(z, k):
     """
     指定された解析式に基づき、リッジレット関数 ψ(z) を定義します。
     """
-    const = mp.sqrt(2 *mp.pi) * ((-1)**(k-1)) * (0.5**(2*k-1))
+    const = mp.sqrt(2 *mp.pi) * (-1) * (0.5**(2*k-1))
     x_arg = z / 2
     hermite_val = mp.hermite(2*k-1, x_arg)
     exp_val = mp.exp(-z**2 / 4)
@@ -60,8 +60,8 @@ def compute_T_ab_grid(k_val=1, a_points=201, b_points=201, only_grid=False):
 # このファイルを直接実行した場合の動作
 # -----------------------------------------------------------------
 if __name__ == '__main__':
-    mp.mp.dps = 25
-    
+    mp.mp.dps = 100
+
     # 計算したいkの範囲を設定
     k_start = 1
     k_end = 5

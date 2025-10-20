@@ -23,9 +23,7 @@ def K_eta_psi(k):
 if __name__ == "__main__":
     mp.mp.dps = 100
     
-    # ks_to_compute = range(1, 101)
     ks_to_compute = range(1, 11)
-     # ← ここで計算するkの範囲を指定 (1から5まで)
     results = []
     
     print(f"Calculating K_eta_psi for k = {ks_to_compute.start} to {ks_to_compute.stop - 1}...")
