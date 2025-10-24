@@ -164,6 +164,18 @@ where
   K_{\psi, \eta} &\coloneqq \intinf \frac{\overline{\psihat(\z)}\etahat(\z)}{\absz^{m}} \, \dd \z
 \end{align}
 
+\bigskip
+
+Fourier transforms are defined as follows:
+\begin{align*}
+  \F[f](\vw) = \hat{f}(\vw) &\coloneqq \intinf f(\vx) \, e^{i \vw \cdot \vx} \, \dx
+\end{align*}
+
+\begin{align*}
+  \F^{-1}[\hat{g}](\vx) &\coloneqq \frac{1}{(2\pi)^m} \intinf \hat{g}(\vw) \, e^{-i \vw \cdot \vx} \, \dw
+\end{align*}
+
+
 \clearpage
 
 \section{Reconstruction Formula}
@@ -241,9 +253,9 @@ The integral after the transformation is as follows:
 
 \begin{align}
   \text{(RHS)} &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd z \, \psi(z) \, \eta(\vw \cdot (\vy - \vx) + z)\\
-  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd z \, \left( \intinf \dd \z \, \psihat(\z) e^{i\z z}\right) \, \eta(\vw \cdot (\vy - \vx) + z) \label{c}\\
-  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd z \, \intinf \dd \z \, \psihat(\z) e^{i\z z} \, \eta(\vw \cdot (\vy - \vx) + z)\label{d}\\
-  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \intinf \dd z \,e^{i\z z} \, \eta(\vw \cdot (\vy - \vx) + z)\label{e}
+  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd z \, \left( \frac{1}{2\pi}\intinf \dd \z \, \psihat(\z) e^{i\z z}\right) \, \eta(\vw \cdot (\vy - \vx) + z) \label{c}\\
+  &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd z \, \intinf \dd \z \, \psihat(\z) e^{i\z z} \, \eta(\vw \cdot (\vy - \vx) + z)\label{d}\\
+  &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \intinf \dd z \,e^{i\z z} \, \eta(\vw \cdot (\vy - \vx) + z)\label{e}
 \end{align}
 
 In equation \eqref{c}, we apply the Fourier inversion formula to $\psi$, which yields the integral representation of $\psi$ via $\psihat$.
@@ -257,20 +269,21 @@ Next, consider the following transformation:
 \end{align}
 
 \begin{align}
-  \text{(RHS)} &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \intinf \dd z' \, e^{i\z z'} \, e^{- i\z \vw \cdot (\vy - \vx)}\, \eta(z')\\
-  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \, e^{- i\z \vw \cdot (\vy - \vx)} \intinf \dd z' \, \eta(z') \, e^{i\z z'} \\
-  &= \intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \, e^{- i\z \vw \cdot (\vy - \vx)} \, \etahat(\z)\\
-  &= \intrm \dx \, f(\vx) \, \intinf \dd \z \, \psihat(\z) \, \etahat(\z) \intrm \dw \, e^{- i\z \vw \cdot (\vy - \vx)}\\
+  \text{(RHS)} &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \intinf \dd z' \, e^{i\z z'} \, e^{- i\z \vw \cdot (\vy - \vx)}\, \eta(z')\\
+  &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \, e^{- i\z \vw \cdot (\vy - \vx)} \intinf \dd z' \, \eta(z') \, e^{i\z z'} \\
+  &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intrm \dw \intinf \dd \z \, \psihat(\z) \, e^{- i\z \vw \cdot (\vy - \vx)} \, \etahat(\z)\\
+  &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intinf \dd \z \, \psihat(\z) \, \etahat(\z) \intrm \dw \, e^{- i\z \vw \cdot (\vy - \vx)}\\
 \end{align}
 
 Considering the transformation from $\z\vw$ to $\vw'$, and noting that its Jacobian is $\absz^m$:
 
 \begin{align}
-  \text{(RHS)} &= \intrm \dx \, f(\vx) \, \intinf \dd \z \, \psihat(\z) \, \etahat(\z) \intrm \frac{\dw}{\absz^m} \, e^{- i\vw' \cdot (\vy - \vx)}\\
-  &= \intrm \dx \, f(\vx) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \intrm \dw \, e^{- i\vw' \cdot (\vy - \vx)}\\
-  &= \intrm \dx \, f(\vx) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \, \delta(\vy - \vx)\\
-  &=  \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \, \intrm \dx \, f(\vx)  \, \delta(\vy - \vx)\\
-  &= f(\vy) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m}. 
+  \text{(RHS)} &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intinf \dd \z \, \psihat(\z) \, \etahat(\z) \intrm \frac{\dw}{\absz^m} \, e^{- i\vw' \cdot (\vy - \vx)}\\
+  &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \intrm \dw \, e^{- i\vw' \cdot (\vy - \vx)}\\
+  &= \frac{1}{2\pi}\intrm \dx \, f(\vx) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \, (2\pi)^m \, \left(\frac{1}{(2\pi)^m}\intrm \dw \, e^{- i\vw' \cdot (\vy - \vx)}\right)\\
+  &= (2\pi)^{m-1}\intrm \dx \, f(\vx) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \, \delta(\vy - \vx)\\
+  &= (2\pi)^{m-1}\intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m} \, \intrm \dx \, f(\vx)  \, \delta(\vy - \vx)\\
+  &= (2\pi)^{m-1}f(\vy) \, \intinf \dd \z \, \dfrac{\psihat(\z) \, \etahat(\z)}{\absz^m}. 
 \end{align}
 
 Thus, it is shown that the reconstruction formula is possible.
