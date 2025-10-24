@@ -34,7 +34,7 @@ def calculate_T(a, b, k):
 
     integrand = lambda x: f(x) * mp.conj(psi(a * x - b, k)) 
 
-    val = mp.quad(integrand, [-1, 1])
+    val = mp.quad(integrand, [-mp.inf, mp.inf])
     return val.real
 
 def compute_T_ab_grid(k_val=1, a_points=601, b_points=601, only_grid=False):

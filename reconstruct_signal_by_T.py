@@ -75,7 +75,7 @@ def reconstruct_and_plot_for_k_range():
                     s += T_ab * eta_val * (delta_a * delta_b) 
             
             if abs(K_eta_psi) > 1e-12:
-                g_k[i_x] = s / K_eta_psi
+                g_k[i_x] = s / (10000 * K_eta_psi)
             else:
                 g_k[i_x] = s
 
