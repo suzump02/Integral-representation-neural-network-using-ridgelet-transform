@@ -11,7 +11,7 @@ def reconstruct_and_plot_for_k_range():
     指定されたkの範囲について、それぞれ独立して信号を再構成し、
     結果を個別のグラフとしてプロット・保存する。
     """
-    mp.mp.dps = 100
+    mp.mp.dps = 50
 
     # --- 検証したいkの範囲を指定 ---
     ks_to_process = range(1, 6) 
@@ -72,7 +72,7 @@ def reconstruct_and_plot_for_k_range():
                 for j_b, b in enumerate(b_vals):
                     T_ab = T_values[i_a, j_b]
                     eta_val = eta(a * x - b)
-                    s += T_ab * eta_val * (delta_a * delta_b) / abs(a)
+                    s += T_ab * eta_val * (delta_a * delta_b) 
             
             if abs(K_eta_psi) > 1e-12:
                 g_k[i_x] = s / K_eta_psi
