@@ -19,7 +19,7 @@ def psi(z, k):
     """
     指定された解析式に基づき、リッジレット関数 ψ(z) を定義します。
     """
-    const = mp.sqrt(2 *mp.pi) * (-1) * (0.5**(2*k-1))
+    const = (-1) * (0.5**(2*k-1))/(2 *mp.sqrt(mp.pi))
     x_arg = z / 2
     hermite_val = mp.hermite(2*k-1, x_arg)
     exp_val = mp.exp(-z**2 / 4)
@@ -31,13 +31,13 @@ def calculate_T(a, b, k):
     """
     if a == 0:
         return 0.0
-    
-    integrand = lambda x: abs(a) * f(x) * mp.conj(psi(a * x - b, k))
-    
+
+    integrand = lambda x: f(x) * mp.conj(psi(a * x - b, k)) 
+
     val = mp.quad(integrand, [-1, 1])
     return val.real
 
-def compute_T_ab_grid(k_val=1, a_points=201, b_points=201, only_grid=False):
+def compute_T_ab_grid(k_val=1, a_points=601, b_points=601, only_grid=False):
     """
     T(a,b)のグリッド計算をまとめて実行し、結果のグリッドを返します。
     """
@@ -60,11 +60,11 @@ def compute_T_ab_grid(k_val=1, a_points=201, b_points=201, only_grid=False):
 # このファイルを直接実行した場合の動作
 # -----------------------------------------------------------------
 if __name__ == '__main__':
-    mp.mp.dps = 100
+    mp.mp.dps = 10
 
     # 計算したいkの範囲を設定
-    k_start = 1
-    k_end = 5
+    k_start = 2
+    k_end = 3
     ks_to_compute = range(k_start, k_end + 1)
     
     print(f"This script will pre-calculate T(a,b) for k from {k_start} to {k_end}.")

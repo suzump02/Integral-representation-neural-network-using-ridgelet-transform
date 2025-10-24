@@ -10,9 +10,8 @@ def eta_hat(z):
 
 # psi_hat(z) の定義
 def psi_hat(z, k):
-    N = 2 * k - 1 
-    phase = (1j) ** N
-    return phase * (z ** N) * mp.exp(-(z ** 2))
+    phase = (1j) ** (2 * k - 1)
+    return phase * (z ** (2 * k - 1)) * mp.exp(-(z ** 2))
 
 # K_{eta,psi} の積分計算
 def K_eta_psi(k):
@@ -22,7 +21,7 @@ def K_eta_psi(k):
 
 if __name__ == "__main__":
     mp.mp.dps = 100
-    
+
     ks_to_compute = range(1, 11)
     results = []
     
